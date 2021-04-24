@@ -14,6 +14,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { ProfileApiService } from './services/profile-api.service';
+import { ProfileMockApiService } from './services/profile-mock-api.service';
 
 const routes: Routes = [
   {
@@ -36,6 +39,12 @@ const routes: Routes = [
     MatProgressBarModule,
     MatCardModule,
     HttpClientModule
+  ],
+  providers: [
+    {
+      provide: ProfileApiService,
+      useClass: environment.production ? ProfileApiService : ProfileMockApiService
+    }
   ]
 })
 export class MlProfileModule { }

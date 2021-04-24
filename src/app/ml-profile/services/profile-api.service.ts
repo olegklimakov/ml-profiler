@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, timer } from 'rxjs';
-import { v4 } from 'uuid';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { MlProfileClass } from '../types/ml-profile.class';
+import { MlProfileStatusEnum } from '../types/ml-profile-status.enum';
 
 @Injectable()
 export class ProfileApiService {
+
+  readonly profilePrefix = '/api/profile/';
 
   constructor(
     private http: HttpClient
@@ -19,23 +20,19 @@ export class ProfileApiService {
   //  stopTraining(id: string): Observable<void> {}
 
   createMLProfile(data: string): Observable<string> {
-    if (environment.production) {
-      return this.http.post<string>('api/', { data });
-    } else {
-      return timer(3000).pipe(map(() => v4()));
-    }
+    return this.http.post<string>(this.profilePrefix, { data });
   }
 
   startTraining(id: string): Observable<void> {
-    return timer(3000).pipe(
-      map(() => {})
-    );
+    return this.http.post<void>(`${this.profilePrefix}${id}/start`, {});
   }
 
   deleteTraining(id: string): Observable<void> {
-    return timer(3000).pipe(
-      map(() => {})
-    );
+    return this.http.delete<void>(`${this.profilePrefix}${id}`);
+  }
+
+  getStatus(data: MlProfileClass): Observable<MlProfileStatusEnum> {
+    return this.http.get<MlProfileStatusEnum>(`${this.profilePrefix}${data.id}/status`);
   }
 
 
