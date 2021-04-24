@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  POC: ML - Profile
+</mat-toolbar>
+<div class="wrapper">
+  <div class="content">
+    <app-create-profile (profileCreated)="onProfileCreated($event)"></app-create-profile>
+    <app-profile-list [list]="mlProfileService.profiles"></app-profile-list>
+  </div>
+</div>
+

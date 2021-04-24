@@ -1,0 +1,27 @@
+<mat-form-field class="form-field" appearance="outline">
+  <mat-label>Machine-learning profile</mat-label>
+  <textarea
+    [readonly]="loading"
+    [formControl]="profileControl"
+    rows="5"
+    matInput
+  ></textarea>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+</mat-form-field>
+
+<button
+  (click)="create()"
+  mat-raised-button
+  [disabled]="loading"
+  class="button"
+>
+  Create
+</button>
+<button
+  *ngIf="loading"
+  mat-raised-button
+  color="warn"
+  (click)="cancel()"
+>
+  Cancel
+</button>
