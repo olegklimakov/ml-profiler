@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MlProfileService } from '../../services/ml-profile.service';
+import { Component } from '@angular/core';
 import { MlProfileClass } from '../../types/ml-profile.class';
+import { Store } from '@ngxs/store';
+import { AddProfile } from '../../store/ml-profile.actions';
 
 @Component({
   selector: 'app-profile-root',
@@ -9,10 +10,10 @@ import { MlProfileClass } from '../../types/ml-profile.class';
 })
 export class ProfileRootComponent {
   constructor(
-    public mlProfileService: MlProfileService,
+    private store: Store
   ) { }
 
-  onProfileCreated(item: MlProfileClass) {
-    this.mlProfileService.addProfile(item);
+  onProfileCreated(profile: MlProfileClass) {
+    this.store.dispatch(new AddProfile({profile}));
   }
 }

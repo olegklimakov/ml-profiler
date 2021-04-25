@@ -24,6 +24,8 @@ import { ProfileStatusComponent } from './components/profile-list/profile-list-i
 import { TimerPipe } from './pipes/timer.pipe';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxsModule } from '@ngxs/store';
+import { MlProfileState } from './store/ml-profile.state';
 
 const routes: Routes = [
   {
@@ -35,6 +37,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [ProfileListComponent, CreateProfileComponent, ProfileRootComponent, ProfileListItemComponent, ProfileStatusComponent, TimerPipe],
   imports: [
+    NgxsModule.forFeature([MlProfileState]),
     RouterModule.forChild(routes),
     CommonModule,
     MatInputModule,

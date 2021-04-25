@@ -3,6 +3,8 @@ import { MlProfileClass } from '../../../types/ml-profile.class';
 import { interval, Subscription } from 'rxjs';
 import { ProfileApiService } from '../../../services/profile-api.service';
 import { MlProfileStatusEnum } from '../../../types/ml-profile-status.enum';
+import { DeleteProfile } from '../../../store/ml-profile.actions';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-profile-list-item',
@@ -49,6 +51,7 @@ export class ProfileListItemComponent {
 
   constructor(
     private profileApi: ProfileApiService,
+    private store: Store,
     private cd: ChangeDetectorRef
   ) { }
 
@@ -79,6 +82,7 @@ export class ProfileListItemComponent {
       this.mlProfile.status = res;
       this.cd.markForCheck();
       console.log(res);
+      this.store.dispatch(new DeleteProfile({ profile: this.mlProfile }));
       if (res === MlProfileStatusEnum.Failed) {
 
       } else if (res === MlProfileStatusEnum.Finished) {
