@@ -2,7 +2,7 @@
   <mat-card-title>
     <div class="row">
       <h2 class="title">Machine learning profile</h2>
-      <app-profile-status></app-profile-status>
+      <app-profile-status [status]="mlProfile.status"></app-profile-status>
     </div>
   </mat-card-title>
   <mat-card-subtitle>{{mlProfile.id}}</mat-card-subtitle>
@@ -13,6 +13,7 @@
     <div class="bottom-part">
       <div class="bottom-left">
         <button
+          (click)="start()"
           mat-mini-fab
           color="primary"
           matTooltip="Start ML training"
@@ -23,6 +24,7 @@
       </div>
       <div class="bottom-right">
         <button
+          (click)="delete()"
           mat-mini-fab
           color="warn"
           matTooltip="Delete ML profile"
@@ -31,6 +33,21 @@
           <mat-icon>delete</mat-icon>
         </button>
       </div>
+    </div>
+    <div class="started">
+      <mat-form-field class="frequency" appearance="outline">
+        <mat-label>Frequency</mat-label>
+        <mat-select [(ngModel)]="selectedRequestsFrequency" name="interval">
+          <mat-option *ngFor="let interval of selectOptions" [value]="interval.value">
+            {{interval.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <app-profile-status [status]="mlProfile.status"></app-profile-status>
+      <span *ngIf="tillTheNextRequestInSecond">
+           Till the next request - {{tillTheNextRequestInSecond | timer}}
+        </span>
+      <mat-spinner [diameter]="30" *ngIf="!tillTheNextRequestInSecond"></mat-spinner>
     </div>
   </mat-card-content>
 </mat-card>

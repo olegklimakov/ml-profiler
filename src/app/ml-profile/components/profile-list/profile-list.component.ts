@@ -1,17 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { MlProfileClass } from '../../types/ml-profile.class';
+import { MlProfileService } from '../../services/ml-profile.service';
 
 @Component({
   selector: 'app-profile-list',
   templateUrl: './profile-list.component.html',
-  styleUrls: ['./profile-list.component.scss']
+  styleUrls: ['./profile-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileListComponent implements OnInit {
+export class ProfileListComponent {
 
-  @Input() list: MlProfileClass[] = [];
-  constructor() { }
+  constructor(
+    public profileService: MlProfileService,
+  ) { }
 
-  ngOnInit(): void {
+  onDelete(item: MlProfileClass) {
+    this.profileService.removeItem(item);
   }
-
 }

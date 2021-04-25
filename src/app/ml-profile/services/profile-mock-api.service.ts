@@ -29,12 +29,13 @@ export class ProfileMockApiService {
   }
 
   getStatus(data: MlProfileClass): Observable<MlProfileStatusEnum> {
-    return timer(3000).pipe(map(() => {
-      if (data.runningTime <= 2000) {
+    return timer(1000).pipe(map(() => {
+      console.log(data);
+      if (data.runningTime <= 15) {
         return MlProfileStatusEnum.Started;
-      } else if (data.runningTime <= 6000) {
+      } else if (data.runningTime <= 25) {
         return MlProfileStatusEnum.Running;
-      } else if (data.runningTime <= 10000) {
+      } else if (data.runningTime <= 35) {
         return MlProfileStatusEnum.Finished;
       }
     }));

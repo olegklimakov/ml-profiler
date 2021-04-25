@@ -1,7 +1,7 @@
-<mat-chip-list [ngSwitch]="status" aria-label="Fish selection">
-  <mat-chip *ngSwitchDefault>created</mat-chip>
-  <mat-chip *ngSwitchCase="isTrainingStarted" color="accent">started</mat-chip>
-  <mat-chip color="accent" *ngSwitchCase="isTrainingRunning">running</mat-chip>
-  <mat-chip color="primary" *ngSwitchCase="isTrainingFinished">finished</mat-chip>
-  <mat-chip color="accent" *ngSwitchCase="isTrainingFailed">failed</mat-chip>
+<mat-chip-list>
+  <mat-chip *ngIf="isJustCreated">created</mat-chip>
+  <mat-chip selected color="accent" *ngIf="isTrainingStarted">started</mat-chip>
+  <mat-chip selected color="accent" *ngIf="isTrainingRunning">running</mat-chip>
+  <mat-chip selected color="primary" *ngIf="isTrainingFinished">finished</mat-chip>
+  <mat-chip selected color="accent" *ngIf="isTrainingFailed">failed</mat-chip>
 </mat-chip-list>

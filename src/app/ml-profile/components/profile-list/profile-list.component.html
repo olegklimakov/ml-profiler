@@ -1,3 +1,9 @@
-<div class="container">
-  <app-profile-list-item class="item" *ngFor="let item of list" [mlProfile]="item"></app-profile-list-item>
+<h1>
+  Profiles List
+</h1>
+<div class="container" *ngIf="(profileService.profiles$ | async) as profiles">
+  <app-profile-list-item
+    *ngFor="let item of profiles" [mlProfile]="item"
+    (deleted)="onDelete(item)"
+    class="item" ></app-profile-list-item>
 </div>

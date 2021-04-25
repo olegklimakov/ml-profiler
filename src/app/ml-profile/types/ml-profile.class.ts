@@ -4,7 +4,7 @@ export class MlProfileClass {
   title: string;
   id: string;
   status = MlProfileStatusEnum.Created;
-  runningTime: number;
+  runningTime = 0;
 
   constructor(text: string, id: string) {
     this.id = id;

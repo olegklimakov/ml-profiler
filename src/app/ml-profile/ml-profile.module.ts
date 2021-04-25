@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileRootComponent } from './components/profile-root/profile-root.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProfileListItemComponent } from './components/profile-list/profile-list-item/profile-list-item.component';
@@ -21,6 +21,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { ProfileStatusComponent } from './components/profile-list/profile-list-item/profile-status/profile-status.component';
+import { TimerPipe } from './pipes/timer.pipe';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [
   {
@@ -30,7 +33,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProfileListComponent, CreateProfileComponent, ProfileRootComponent, ProfileListItemComponent, ProfileStatusComponent],
+  declarations: [ProfileListComponent, CreateProfileComponent, ProfileRootComponent, ProfileListItemComponent, ProfileStatusComponent, TimerPipe],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
@@ -45,7 +48,10 @@ const routes: Routes = [
     HttpClientModule,
     MatIconModule,
     MatTooltipModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSliderModule,
+    MatSelectModule,
+    FormsModule
   ],
   providers: [
     {
