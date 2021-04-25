@@ -13,6 +13,6 @@ export class ProfileRootComponent {
   ) { }
 
   onProfileCreated(item: MlProfileClass) {
-    this.mlProfileService.profiles.push(item);
+    this.mlProfileService.addProfile(item);
   }
 }

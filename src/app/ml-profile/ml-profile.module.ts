@@ -17,6 +17,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { ProfileApiService } from './services/profile-api.service';
 import { ProfileMockApiService } from './services/profile-mock-api.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatChipsModule } from '@angular/material/chips';
+import { ProfileStatusComponent } from './components/profile-list/profile-list-item/profile-status/profile-status.component';
 
 const routes: Routes = [
   {
@@ -26,7 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProfileListComponent, CreateProfileComponent, ProfileRootComponent, ProfileListItemComponent],
+  declarations: [ProfileListComponent, CreateProfileComponent, ProfileRootComponent, ProfileListItemComponent, ProfileStatusComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
@@ -38,7 +42,10 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatChipsModule
   ],
   providers: [
     {

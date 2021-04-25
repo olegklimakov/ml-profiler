@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ProfileApiService } from '../../services/profile-api.service';
@@ -27,19 +27,27 @@ export class CreateProfileComponent {
     this.loading = true;
     const value = this.profileControl.value;
     this.sub = this.profileApiService.createMLProfile(this.profileControl.value).subscribe(id => {
-      this.loading = false;
-      this.profileControl.patchValue('');
-      this.profileCreated.emit(new MlProfileClass(value, id));
-      this.snackBar.open('Profile was created', 'Close', {
-        duration: 2000,
-        horizontalPosition: 'start',
-        verticalPosition: 'bottom',
-      });
+      this.afterCreateHandling(value, id);
     });
   }
 
   cancel(): void {
     this.sub.unsubscribe();
     this.loading = false;
+  }
+
+  private afterCreateHandling(value: string, id: string): void {
+    this.loading = false;
+    this.profileControl.patchValue('');
+    this.profileCreated.emit(new MlProfileClass(value, id));
+    this.showUserNotification();
+  }
+
+  private showUserNotification(): void {
+    this.snackBar.open('Profile was created', 'Close', {
+      duration: 2000,
+      horizontalPosition: 'start',
+      verticalPosition: 'bottom',
+    });
   }
 }

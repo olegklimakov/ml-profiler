@@ -1,6 +1,37 @@
 <mat-card>
-  <mat-card-title>Machine learning profile</mat-card-title>
+  <mat-card-title>
+    <div class="row">
+      <h2 class="title">Machine learning profile</h2>
+      <app-profile-status></app-profile-status>
+    </div>
+  </mat-card-title>
   <mat-card-subtitle>{{mlProfile.id}}</mat-card-subtitle>
-  <mat-card-content>{{mlProfile.title}}</mat-card-content>
+  <mat-card-content>
+    <div>
+      {{mlProfile.title}}
+    </div>
+    <div class="bottom-part">
+      <div class="bottom-left">
+        <button
+          mat-mini-fab
+          color="primary"
+          matTooltip="Start ML training"
+          aria-label="Start ML training"
+        >
+          <mat-icon>arrow_right</mat-icon>
+        </button>
+      </div>
+      <div class="bottom-right">
+        <button
+          mat-mini-fab
+          color="warn"
+          matTooltip="Delete ML profile"
+          aria-label="Delete ML profile"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
 </mat-card>
 
