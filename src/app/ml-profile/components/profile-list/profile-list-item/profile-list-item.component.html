@@ -13,6 +13,7 @@
     <div class="bottom-part">
       <div class="bottom-left">
         <button
+          *ngIf="!(selectedProfile$ | async) && mlProfile.status !== 'finished'"
           (click)="getStatus()"
           mat-mini-fab
           color="primary"
@@ -21,9 +22,27 @@
         >
           <mat-icon>arrow_right</mat-icon>
         </button>
+        <div class="started" *ngIf="(selectedProfile$ | async) && (itemStarted$ | async)">
+          <mat-form-field class="frequency" appearance="outline">
+            <mat-label>Frequency</mat-label>
+            <mat-select (ngModelChange)="changeDuration($event)" [ngModel]="selectedRequestsFrequency" name="interval">
+              <mat-option *ngFor="let interval of selectOptions" [value]="interval.value">
+                {{interval.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="status">
+            Status - <app-profile-status class="badge" [status]="mlProfile.status"></app-profile-status>
+          </div>
+          <div *ngIf="tillTheNextRequestInSecond">
+            <p>Till the next request - {{tillTheNextRequestInSecond | timer}}</p>
+          </div>
+          <mat-spinner [diameter]="30" *ngIf="!tillTheNextRequestInSecond"></mat-spinner>
+        </div>
       </div>
       <div class="bottom-right">
         <button
+          *ngIf="!deleteLoading"
           (click)="delete()"
           mat-mini-fab
           color="warn"
@@ -32,22 +51,8 @@
         >
           <mat-icon>delete</mat-icon>
         </button>
+        <mat-spinner [diameter]="30" *ngIf="deleteLoading"></mat-spinner>
       </div>
-    </div>
-    <div class="started">
-      <mat-form-field class="frequency" appearance="outline">
-        <mat-label>Frequency</mat-label>
-        <mat-select [(ngModel)]="selectedRequestsFrequency" name="interval">
-          <mat-option *ngFor="let interval of selectOptions" [value]="interval.value">
-            {{interval.title}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <app-profile-status [status]="mlProfile.status"></app-profile-status>
-      <span *ngIf="tillTheNextRequestInSecond">
-           Till the next request - {{tillTheNextRequestInSecond | timer}}
-        </span>
-      <mat-spinner [diameter]="30" *ngIf="!tillTheNextRequestInSecond"></mat-spinner>
     </div>
   </mat-card-content>
 </mat-card>

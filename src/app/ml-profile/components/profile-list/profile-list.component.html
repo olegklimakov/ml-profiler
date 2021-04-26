@@ -3,7 +3,6 @@
 </h1>
 <div class="container" *ngIf="(profiles$ | async) as profiles">
   <app-profile-list-item
-    *ngFor="let item of profiles" [mlProfile]="item"
-    (deleted)="onDelete(item)"
+    *ngFor="let item of profiles; trackBy: trackById" [mlProfile]="item"
     class="item" ></app-profile-list-item>
 </div>

@@ -1,10 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MlProfileClass } from '../../types/ml-profile.class';
-import { MlProfileService } from '../../services/ml-profile.service';
-import { MlProfileState } from '../../store/ml-profile.state';
 import { Observable } from 'rxjs';
-import { Select, Store } from '@ngxs/store';
-import { AddProfile, DeleteProfile } from '../../store/ml-profile.actions';
+import { Select } from '@ngxs/store';
 
 @Component({
   selector: 'app-profile-list',
@@ -14,15 +11,10 @@ import { AddProfile, DeleteProfile } from '../../store/ml-profile.actions';
 })
 export class ProfileListComponent {
 
-  @Select(MlProfileState) profiles$: Observable<MlProfileClass[]>;
+  @Select(state => state.mlProfiles.list) profiles$: Observable<MlProfileClass[]>;
+  constructor() {}
 
-  constructor(
-    private store: Store,
-  ) {
-  }
-
-  onDelete(profile: MlProfileClass) {
-    // this.profileService.removeItem(item);
-    this.store.dispatch(new DeleteProfile({ profile }));
+  trackById(index, item){
+    return item.id;
   }
 }

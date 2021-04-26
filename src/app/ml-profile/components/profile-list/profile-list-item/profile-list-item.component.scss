@@ -31,7 +31,6 @@
 
 .frequency {
   width: 100px;
-  margin-right: 15px;
   .mat-form-field-wrapper {
     margin: 0;
     padding: 0;
@@ -40,5 +39,14 @@
 
 .started {
   display: flex;
+  flex-direction: column;
+}
+
+.status {
+  display: flex;
   align-items: center;
+}
+
+.badge {
+  margin-left: 10px;
 }

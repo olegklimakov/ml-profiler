@@ -1,16 +1,22 @@
 import { Action, State, StateContext } from '@ngxs/store';
 import { MlProfileClass } from '../types/ml-profile.class';
 import { Injectable } from '@angular/core';
-import { AddProfile, DeleteProfile, UpdateProfile } from './ml-profile.actions';
+import { AddProfile, DeleteProfile, RemoveSelected, UpdateProfile } from './ml-profile.actions';
 
 interface MlProfileStateModel {
   list: MlProfileClass[];
-  selected: MlProfileClass;
+  selected: MlProfileClass | null;
 }
 
+export const PROFILE_LS_KEY = 'ml-profiles';
+const lsState = localStorage.getItem(PROFILE_LS_KEY);
+
 @State<MlProfileStateModel>({
-  name: 'MLProfiles',
-  defaults: {
+  name: 'mlProfiles',
+  defaults: lsState ? {
+    selected: null,
+    list: JSON.parse(lsState)?.list || [],
+  } : {
     selected: null,
     list: []
   }
@@ -25,10 +31,12 @@ export class MlProfileState {
     ctx.setState({
       ...state,
       list: [
+        profile,
         ...state.list,
-        profile
       ]
     });
+    const newState = ctx.getState();
+    this.saveToLS(newState);
   }
 
   @Action(UpdateProfile)
@@ -43,6 +51,8 @@ export class MlProfileState {
       selected: profile,
       list
     });
+    const newState = ctx.getState();
+    this.saveToLS(newState);
   }
 
   @Action(DeleteProfile)
@@ -52,9 +62,26 @@ export class MlProfileState {
     const { list } = state;
     ctx.setState({
       ...state,
-      selected: profile,
       list: list.filter(item => item.id !== profile.id)
     });
+    const newState = ctx.getState();
+    this.saveToLS(newState);
   }
 
+  @Action(RemoveSelected)
+  deleteSelected(ctx: StateContext<MlProfileStateModel>) {
+    const state = ctx.getState();
+    ctx.setState({
+      ...state,
+      selected: null,
+    });
+    const newState = ctx.getState();
+    this.saveToLS(newState);
+  }
+
+  // lil bit shitty, because we don't have method for getting profile list from server
+  // used for better UX - we want to get our data when we reload our page
+  private saveToLS(state: MlProfileStateModel): void {
+    localStorage.setItem(PROFILE_LS_KEY, JSON.stringify(state)); // bad practice to use .value
+  }
 }

@@ -1,7 +1,7 @@
-<mat-chip-list>
-  <mat-chip *ngIf="isJustCreated">created</mat-chip>
-  <mat-chip selected color="accent" *ngIf="isTrainingStarted">started</mat-chip>
-  <mat-chip selected color="accent" *ngIf="isTrainingRunning">running</mat-chip>
-  <mat-chip selected color="primary" *ngIf="isTrainingFinished">finished</mat-chip>
-  <mat-chip selected color="accent" *ngIf="isTrainingFailed">failed</mat-chip>
+<mat-chip-list [ngSwitch]="status">
+  <mat-chip *ngSwitchDefault>created</mat-chip>
+  <mat-chip *ngSwitchCase="'started'" selected color="accent">started</mat-chip>
+  <mat-chip *ngSwitchCase="'running'" selected color="accent" >running</mat-chip>
+  <mat-chip *ngSwitchCase="'finished'" selected color="primary" >finished</mat-chip>
+  <mat-chip *ngSwitchCase="'failed'" selected color="accent" >failed</mat-chip>
 </mat-chip-list>

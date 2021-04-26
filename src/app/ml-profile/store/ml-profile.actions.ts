@@ -14,3 +14,7 @@ export class DeleteProfile {
   static readonly type = '[ML-Profile] Delete';
   constructor(public payload: { profile: MlProfileClass }) {}
 }
+
+export class RemoveSelected {
+  static readonly type = '[ML-Profile] Remove Selected';
+}

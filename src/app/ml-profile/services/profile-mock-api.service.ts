@@ -30,7 +30,7 @@ export class ProfileMockApiService {
 
   getStatus(data: MlProfileClass): Observable<MlProfileStatusEnum> {
     return timer(1000).pipe(map(() => {
-      console.log(data);
+      console.log('MOCK DATA', data);
       if (data.runningTime <= 15) {
         return MlProfileStatusEnum.Started;
       } else if (data.runningTime <= 25) {
